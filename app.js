@@ -1,14 +1,29 @@
+// Init Github
+const github = new GitHub;
+
+// Init UI
+const ui = new UI;
+
+// Find the input
 const searchUser = document.getElementById('searchUser');
 
-console.log(searchUser);
-
+// delegate keyup event to input
 searchUser.addEventListener('keyup', (e) => {
-    if (e.target.value !== '')
+    const user = e.target.value;
+    if (user !== '')
     {
         //Call gitapi fetch data
-        GitHub github = new GitHub;
+        github.getUsers(user)
+        .then(data => {
+            if (data.Message === "Not Found"){
+                // alert that user not found
+            }
+            else{
+                ui.showProfile(data.profile);
+            }
+        });
     }
     else{
-        //alert user not found
+        // clear profile
     }
 })
