@@ -15,8 +15,12 @@ searchUser.addEventListener('keyup', (e) => {
         //Call gitapi fetch data
         github.getUsers(user)
         .then(data => {
-            if (data.Message === "Not Found"){
+            if (data.profile.message === "Not Found"){
                 // alert that user not found
+                ui.showAlert(data.profile.message, 'alert alert-danger');
+                
+                // clear profile
+                ui.clearProfile();
             }
             else{
                 ui.showProfile(data.profile);
@@ -25,5 +29,6 @@ searchUser.addEventListener('keyup', (e) => {
     }
     else{
         // clear profile
+        ui.clearProfile();
     }
 })
